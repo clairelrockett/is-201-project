@@ -1,0 +1,96 @@
+/* Overall page style */
+body {
+    background-color: #dbe7c9; /* Light green to match the Masters image */
+    font-family: 'Azalea', serif; /* Azalea font */
+    color: #2c3e50; /* Dark text for readability */
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Style Definition 1: The Main Wrapper */
+.main-content {
+    max-width: 900px;
+    margin: 0 auto; /* Centers the whole page content */
+}
+
+h2 {
+    color: #1f5d2b;
+}
+
+#hobby-section {
+    color: #1f5d2b;
+}
+
+/* Style Definition 2: Professional "Cards" for content */
+.content-card {
+    background: #fff9d8;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Enhanced shadow */
+    text-align: center;
+}
+
+.hero-image-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto 30px;
+}
+
+.hero-image-container .hobby-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.hero-overlay-card {
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 680px;
+    background: transparent;
+    padding: 22px;
+    text-align: center;
+}
+
+.hero-overlay-card h1 {
+    color: #fff27a;
+    font-size: 3.2rem;
+    letter-spacing: 0.04em;
+    text-shadow: -2px -2px 0 #1e5f20, 2px -2px 0 #1e5f20, -2px 2px 0 #1e5f20, 2px 2px 0 #1e5f20;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0;
+}
+
+.hero-overlay-card nav {
+    margin-top: 12px;
+}
+
+/* Style Definition 3: Centering the Video */
+.video-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%; /* Keeps 16:9 aspect ratio */
+    position: relative;
+    height: 0;
+}
+
+.video-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border: none;
+}
+
+/* Style Definition 4: Spacing for Tableau */
+.tableau-container {
+    margin-top: 20px;
+    border-top: 2px solid #eee;
+    padding-top: 20px;
+}
