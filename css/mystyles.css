@@ -79,6 +79,26 @@ h2 {
     height: 0;
 }
 
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 14px 24px;
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    text-align: center;
+    z-index: 1000;
+    text-decoration: none;
+}
+
+.back-to-top h3 {
+    margin: 0;
+    color: #1f5d2b;
+    font-size: 1rem;
+}
+
 .video-responsive iframe {
     left: 0;
     top: 0;
