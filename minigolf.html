@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Masters Mini Golf</title>
+    <style>
+        /* Matches the light green background from your screenshot  */
+        body { 
+            background-color: #D6E3BA; 
+            text-align: center; 
+            font-family: 'Georgia', serif; 
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        /* Matches the cream-colored container  */
+        .game-box { 
+            background-color: #FDF5E6; 
+            padding: 30px; 
+            border: 6px solid #064531; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        canvas { 
+            background: #2d8a4e; 
+            border: 3px solid #064531; 
+            cursor: crosshair;
+            border-radius: 5px;
+        }
+        h1 { color: #064531; margin-top: 0; text-transform: uppercase; }
+        .ui { color: #064531; font-weight: bold; margin-top: 15px; }
+        button {
+            background-color: #064531;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        button:hover { background-color: #086347; }
+    </style>
+</head>
+<body>
+
+    <div class="game-box">
+        <h1>THE MASTERS</h1>
+        <canvas id="golfCanvas" width="350" height="600"></canvas>
+        <div class="ui">
+            <p id="status">Pull back on the ball to aim and shoot!</p>
+            <button onclick="resetGame()">Reset Ball</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('golfCanvas');
+        const ctx = canvas.getContext('2d');
+        const statusText = document.getElementById('status');
+
+        // Moved ball starting Y position higher (350 instead of 450)
+        let ball = { x: 175, y: 350, vx: 0, vy: 0, radius: 8 };
+        let hole = { x: 175, y: 60, radius: 14 };
+        let hasWon = false;
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Hole
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(hole.x, hole.y, hole.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw Ball
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = "#999";
+            ctx.stroke();
+
+            // Physics
+            ball.x += ball.vx;
+            ball.y += ball.vy;
+            ball.vx *= 0.97; // Friction
+            ball.vy *= 0.97;
+
+            // Bounce off walls
+            if (ball.x < 0 || ball.x > canvas.width) ball.vx *= -1;
+            if (ball.y < 0 || ball.y > canvas.height) ball.vy *= -1;
+
+            // Check Win Condition (Only if not already won)
+            let dist = Math.hypot(ball.x - hole.x, ball.y - hole.y);
+            if (dist < hole.radius && !hasWon && Math.abs(ball.vx) < 2) {
+                hasWon = true;
+                ball.vx = 0;
+                ball.vy = 0;
+                ball.x = hole.x;
+                ball.y = hole.y;
+                alert("Hole in One! A legendary Master's finish.");
+                statusText.innerText = "Champion! Click Reset to play again.";
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        canvas.onmouseup = (e) => {
+            if (hasWon) return; // Prevent shooting after winning
+            
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            // Slingshot mechanic: Pull away from target to build power
+            ball.vx = (ball.x - mouseX) * 0.12;
+            ball.vy = (ball.y - mouseY) * 0.12;
+        };
+
+        function resetGame() {
+            ball = { x: 175, y: 350, vx: 0, vy: 0, radius: 8 };
+            hasWon = false;
+            statusText.innerText = "Pull back on the ball to aim and shoot!";
+        }
+
+        draw();
+    </script>
+</body>
+</html>
